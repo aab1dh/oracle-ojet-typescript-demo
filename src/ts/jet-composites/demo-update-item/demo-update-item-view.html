@@ -1,0 +1,18 @@
+<!--
+  Copyright (c) 2015, 2021, Oracle and/or its affiliates.
+  Licensed under The Universal Permissive License (UPL), Version 1.0
+  as shown at https://oss.oracle.com/licenses/upl/
+
+-->
+<p><oj-bind-text value="[[messageText]]"></oj-bind-text></p>
+<oj-form-layout :id="[[val]]">
+  <oj-input-text value="{{id}}" label-hint="Item ID"></oj-input-text>
+  <oj-input-text value="Name" label-hint="Item Name"></oj-input-text>
+  <oj-input-text value="Price" label-hint="Item Price"></oj-input-text>
+  <oj-input-text
+    value="Description"
+    label-hint="Item Description"
+  ></oj-input-text>
+</oj-form-layout>
+<oj-bind-text value="{{id}}"></oj-bind-text>
+<!-- <oj-input-text disabled :id="myit" :slot="value" value="{{id}}"></oj-input-text> -->

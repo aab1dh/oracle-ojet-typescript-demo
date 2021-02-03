@@ -1,0 +1,58 @@
+<!--
+ Copyright (c) 2014, 2021, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-hybrid-padding">
+  <h1>Dashboard Content Area</h1>
+  <div>
+    To change the content of this section, you will make edits to the
+    dashboard.html file located in the /ts/views folder.
+  </div>
+
+  <div>
+    <oj-label for="basicSelect">Select Chart:</oj-label>
+    <oj-select-single
+      id="basicSelect"
+      style="max-width: 20em"
+      data="[[chartTypes]]"
+      value="{{val}}"
+    >
+    </oj-select-single>
+    <oj-chart
+      id="barChart"
+      type="{{val}}"
+      data="[[chartDataProvider]]"
+      animation-on-display="auto"
+      animation-on-data-change="auto"
+      hover-behavior="dim"
+      style="max-width: 500px; width: 100%; height: 350px"
+    >
+      <template slot="itemTemplate" data-oj-as="item">
+        <oj-chart-item
+          value="[[item.data.value]]"
+          group-id="[[ [item.data.group] ]]"
+          series-id="[[item.data.series]]"
+        >
+        </oj-chart-item>
+      </template>
+    </oj-chart>
+  </div>
+
+  <!-- <oj-accordion>
+    <oj-collapsible>
+      <h3 slot="header">
+        <img src="images/default.png" />
+        <span>Header 1</span>
+      </h3>
+      <p>Content 1.</p>
+    </oj-collapsible>
+    <oj-collapsible expanded="true">
+      <h3 slot="header">Header 3</h3>
+      <p>Content 3</p>
+    </oj-collapsible>
+  </oj-accordion> -->
+  <!-- <oj-button id="myButton" class="oj-focus-highlight">
+    <span>My Button</span>
+  </oj-button> -->
+</div>
