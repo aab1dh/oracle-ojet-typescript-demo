@@ -5,23 +5,14 @@ import "ojs/ojarraydataprovider"
 import { ojListView } from "ojs/ojlistview"
 import "ojs/ojlistview"
 import "ojs/ojavatar"
+import "ojs/ojprogress-circle";
+import "ojs/ojknockout";
 class CustomersViewModel {
 
   RESTurl = "https://apex.oracle.com/pls/apex/oraclejet/lp/activities/";
-  activityDataProvider
-  constructor() {
-    let self = this;
-    this.activityDataProvider = ko.observable()
-    console.log('calling api', this.RESTurl)
-    $.getJSON(this.RESTurl).then(function (data) {
-      console.log(data)
-      const activitiesArray = data.items;
-      // self.activityDataProvider = ko.observableArray(activitiesArray)
-      // self.activityDataProvider(new ArrayDataProvider(activitiesArray, { keyAttributes: 'id' }));
-      self.activityDataProvider(new ArrayDataProvider(activitiesArray, { keyAttributes: 'id' }));
-    }
-    );
-  }
+  activityDataProvider: ko.Observable<any> = ko.observable()
+  loader: ko.Observable<boolean> = ko.observable(true)
+  constructor() { }
 
   /**
    * Optional ViewModel method invoked after the View is inserted into the
@@ -50,6 +41,21 @@ class CustomersViewModel {
    */
   transitionCompleted(): void {
     // implement if needed
+
+    setTimeout((() => {
+      let self = this;
+
+      console.log('calling api', this.RESTurl)
+      $.getJSON(this.RESTurl).then(function (data) {
+        console.log(data)
+        const activitiesArray = data.items;
+        // self.activityDataProvider = ko.observableArray(activitiesArray)
+        // self.activityDataProvider(new ArrayDataProvider(activitiesArray, { keyAttributes: 'id' }));
+        self.activityDataProvider(new ArrayDataProvider(activitiesArray, { keyAttributes: 'id' }));
+        self.loader(false)
+      }
+      );
+    }).bind(this), 0);
   }
 }
 

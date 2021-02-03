@@ -11,7 +11,8 @@ import { ojSelectSingle } from "ojs/ojselectsingle"
 import "ojs/ojselectsingle"
 import { ojChart } from "ojs/ojchart"
 import "ojs/ojchart"
-// import "requirejs/text"
+import "ojs/ojprogress-circle";
+import "ojs/ojknockout";
 import * as data from "text!data/data.json"
 class DashboardViewModel {
   types = [
@@ -19,21 +20,11 @@ class DashboardViewModel {
     { value: 'bar', label: 'Bar' }
   ];
   chartData = JSON.parse(data);
-  chartTypes
-  val
-  chartDataProvider
-
-  constructor() {
-    let self = this;
-    self.chartTypes = new ArrayDataProvider(this.types, { keyAttributes: 'value' });
-    self.val = ko.observable("pie");
-    self.chartDataProvider = new ArrayDataProvider(this.chartData, { keyAttributes: 'id' });
-
-
-    self.val.subscribe(data => console.log(data))
-
-
-  }
+  chartTypes: ko.Observable<any> = ko.observable({})
+  val: ko.Observable<string> = ko.observable("pie");
+  chartDataProvider: ko.Observable<any> = ko.observable({})
+  loader: ko.Observable<boolean> = ko.observable(true)
+  constructor() { }
 
   /**
    * Optional ViewModel method invoked after the View is inserted into the
@@ -47,6 +38,7 @@ class DashboardViewModel {
     AccUtils.announce("Dashboard page loaded.");
     document.title = "Dashboard";
     // implement further logic if needed
+    console.log('connected')
   }
 
   /**
@@ -54,6 +46,7 @@ class DashboardViewModel {
    */
   disconnected(): void {
     // implement if needed
+    console.log('disconnected')
   }
 
   /**
@@ -62,6 +55,17 @@ class DashboardViewModel {
    */
   transitionCompleted(): void {
     // implement if needed
+    console.log('transition completed')
+    setTimeout((() => {
+      console.log('bar')
+      let self = this;
+      self.val('bar')
+      self.chartTypes(new ArrayDataProvider(this.types, { keyAttributes: 'value' }));
+      self.chartDataProvider(new ArrayDataProvider(this.chartData, { keyAttributes: 'id' }));
+      self.loader(false)
+    }).bind(this), 0);
+
+
   }
 }
 

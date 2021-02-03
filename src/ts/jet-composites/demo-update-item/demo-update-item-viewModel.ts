@@ -11,6 +11,8 @@ import * as ResponsiveKnockoutUtils from "ojs/ojresponsiveknockoututils";
 import "ojs/ojresponsiveknockoututils"
 import "ojs/ojformlayout"
 import "ojs/ojinputtext"
+import "ojs/ojprogress-circle";
+import "ojs/ojknockout";
 
 export default class ViewModel implements Composite.ViewModel<Composite.PropertiesType> {
     busyResolve: (() => void);
@@ -21,20 +23,10 @@ export default class ViewModel implements Composite.ViewModel<Composite.Properti
     isSmall
     labelEdge
     val = "form-one"
-
     id
+    loader: ko.Observable<boolean> = ko.observable(true)
     constructor(context: Composite.ViewModelContext<Composite.PropertiesType>) {
-        var self = this;
-        // For Form Layout
-        self.isSmall = ResponsiveKnockoutUtils.createMediaQueryObservable(
-            ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY));
-        // For small screens: labels on top
-        // For medium or bigger: labels inline
-        self.labelEdge = ko.computed(function () {
-            return self.isSmall() ? "top" : "start";
-        }, self);
 
-        this.id = ko.observable("Hello")
 
 
 
@@ -67,8 +59,22 @@ export default class ViewModel implements Composite.ViewModel<Composite.Properti
     };
 
     connected(context: Composite.ViewModelContext<Composite.PropertiesType>): void {
+        console.log('connected component')
+        var self = this;
+        // For Form Layout
+        self.isSmall = ResponsiveKnockoutUtils.createMediaQueryObservable(
+            ResponsiveUtils.getFrameworkQuery(ResponsiveUtils.FRAMEWORK_QUERY_KEY.SM_ONLY));
+        // For small screens: labels on top
+        // For medium or bigger: labels inline
+        self.labelEdge = ko.computed(function () {
+            return self.isSmall() ? "top" : "start";
+        }, self);
 
+        this.id = ko.observable("Hello")
+        self.loader(false)
     };
+
+
 
     bindingsApplied(context: Composite.ViewModelContext<Composite.PropertiesType>): void {
 

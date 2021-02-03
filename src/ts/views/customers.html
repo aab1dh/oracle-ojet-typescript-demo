@@ -31,4 +31,17 @@
       </div>
     </template>
   </oj-list-view>
+  <oj-bind-if test="[[loader]]">
+    <div
+      id="progressCircleWrapper"
+      style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      "
+    >
+      <oj-progress-circle size="lg" value="-1"></oj-progress-circle>
+    </div>
+  </oj-bind-if>
 </div>

@@ -16,3 +16,16 @@
 </oj-form-layout>
 <oj-bind-text value="{{id}}"></oj-bind-text>
 <!-- <oj-input-text disabled :id="myit" :slot="value" value="{{id}}"></oj-input-text> -->
+<oj-bind-if test="[[loader]]">
+  <div
+    id="progressCircleWrapper"
+    style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    "
+  >
+    <oj-progress-circle size="lg" value="-1"></oj-progress-circle>
+  </div>
+</oj-bind-if>
