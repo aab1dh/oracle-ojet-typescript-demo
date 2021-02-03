@@ -58,7 +58,7 @@ export default class ViewModel implements Composite.ViewModel<Composite.Properti
 
     };
 
-    connected(context: Composite.ViewModelContext<Composite.PropertiesType>): void {
+    async connected(context: Composite.ViewModelContext<Composite.PropertiesType>): Promise<void> {
         console.log('connected component')
         var self = this;
         // For Form Layout
@@ -73,6 +73,7 @@ export default class ViewModel implements Composite.ViewModel<Composite.Properti
         this.id = ko.observable("Hello")
         self.loader(false)
     };
+
 
 
 

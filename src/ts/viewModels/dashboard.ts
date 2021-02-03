@@ -53,20 +53,20 @@ class DashboardViewModel {
    * Optional ViewModel method invoked after transition to the new View is complete.
    * That includes any possible animation between the old and the new View.
    */
-  transitionCompleted(): void {
+  async transitionCompleted(): Promise<void> {
     // implement if needed
     console.log('transition completed')
-    setTimeout((() => {
-      console.log('bar')
-      let self = this;
-      self.val('bar')
-      self.chartTypes(new ArrayDataProvider(this.types, { keyAttributes: 'value' }));
-      self.chartDataProvider(new ArrayDataProvider(this.chartData, { keyAttributes: 'id' }));
-      self.loader(false)
-    }).bind(this), 0);
+
+    console.log('bar')
+    let self = this;
+    self.val('bar')
+    self.chartTypes(new ArrayDataProvider(this.types, { keyAttributes: 'value' }));
+    self.chartDataProvider(new ArrayDataProvider(this.chartData, { keyAttributes: 'id' }));
+    self.loader(false)
 
 
   }
+
 }
 
 export = DashboardViewModel;

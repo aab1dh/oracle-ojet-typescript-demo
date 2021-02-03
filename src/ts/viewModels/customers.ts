@@ -39,24 +39,23 @@ class CustomersViewModel {
    * Optional ViewModel method invoked after transition to the new View is complete.
    * That includes any possible animation between the old and the new View.
    */
-  transitionCompleted(): void {
+  async transitionCompleted(): Promise<void> {
     // implement if needed
+    let self = this;
 
-    setTimeout((() => {
-      let self = this;
-
-      console.log('calling api', this.RESTurl)
-      $.getJSON(this.RESTurl).then(function (data) {
-        console.log(data)
-        const activitiesArray = data.items;
-        // self.activityDataProvider = ko.observableArray(activitiesArray)
-        // self.activityDataProvider(new ArrayDataProvider(activitiesArray, { keyAttributes: 'id' }));
-        self.activityDataProvider(new ArrayDataProvider(activitiesArray, { keyAttributes: 'id' }));
-        self.loader(false)
-      }
-      );
-    }).bind(this), 0);
+    console.log('calling api', this.RESTurl)
+    await $.getJSON(this.RESTurl).then(function (data) {
+      console.log(data)
+      const activitiesArray = data.items;
+      // self.activityDataProvider = ko.observableArray(activitiesArray)
+      // self.activityDataProvider(new ArrayDataProvider(activitiesArray, { keyAttributes: 'id' }));
+      self.activityDataProvider(new ArrayDataProvider(activitiesArray, { keyAttributes: 'id' }));
+      self.loader(false)
+    }
+    );
   }
+
+
 }
 
 export = CustomersViewModel;
